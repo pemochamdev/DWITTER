@@ -1,0 +1,20 @@
+<!-- dwitter/templates/dwitter/dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="column">
+    {% for dweet in all_dweet %}
+            <div class="box">
+                {{ dweet.body }}
+                <span class="is-small has-text-grey-light">
+                    ({{ dweet.created_at }} by {{ dweet.user.username }}
+                </span>
+            </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock content %}

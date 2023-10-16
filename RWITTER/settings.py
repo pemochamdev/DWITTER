@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     ####local app######
     'dwitter',
+    
 ]
 
 MIDDLEWARE = [
