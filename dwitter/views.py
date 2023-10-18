@@ -1,11 +1,25 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from dwitter.models import Profile, Dweet
+from dwitter.forms import DweetForm
 
 def dashboard(request):
-    all_dweet = Dweet.objects.filter(user = request.user)
+    all_dweet = Dweet.objects.filter(user__profile__in = request.user.profile.follows.all()).order_by('-created_at')
+    if request.method =='POST':
+        form = DweetForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.save()
+            return redirect('/')
+    else:
+        form = DweetForm()
 
-    context = {'all_dweet':all_dweet}
+
+    context = {
+        'all_dweet':all_dweet,
+        'form':form,
+        }
     return render(request, 'dwitter/dashboard.html', context)
 
 
