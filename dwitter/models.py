@@ -8,7 +8,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User,
         on_delete=models.CASCADE,
-        related_name='user_profile'
+        related_name='profile'
     )
 
     follows = models.ManyToManyField(
@@ -48,4 +48,4 @@ class Dweet(models.Model):
             f"{self.body[:10]}..."
         )
 
-#post_save.connect(create_profile, sender=User)
+post_save.connect(create_profile, sender=User)
